@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:SkiaSharpDemo"
+             xmlns:views="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+             x:Class="SkiaSharpDemo.MainPage"
+             Title="SkiaSharp">
+
+    <Grid>
+        <local:GraphicsCanvas>
+            <local:GraphicsRectangle Top="20" Left="10" Width="120" Height="110" FillColor="Red" />
+            <local:GraphicsRectangle Top="50" Left="60" Width="50" Height="100" StrokeColor="Green" StrokeWidth="6" />
+        </local:GraphicsCanvas>
+    </Grid>
+
+</ContentPage>
