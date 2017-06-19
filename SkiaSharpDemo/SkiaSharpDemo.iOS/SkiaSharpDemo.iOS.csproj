@@ -151,7 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SkiaSharpDemo\SkiaSharpDemo.csproj">
-      <Project>{e692c20c-8daa-4883-ba28-77efb465f88c}</Project>
+      <Project>{813F582A-A2EC-4C1C-8A32-50AB8D4EF0BD}</Project>
       <Name>SkiaSharpDemo</Name>
     </ProjectReference>
   </ItemGroup>

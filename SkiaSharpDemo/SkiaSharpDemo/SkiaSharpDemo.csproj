@@ -40,12 +40,12 @@
     </Compile>
     <Compile Include="GraphicsCanvas.cs" />
     <Compile Include="GraphicsElement.cs" />
-    <Compile Include="GraphicsRectangle.cs" />
+    <Compile Include="Rectangle.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GraphicsOval.cs" />
+    <Compile Include="Oval.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainPage.xaml">

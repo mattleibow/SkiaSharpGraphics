@@ -4,28 +4,15 @@ using Xamarin.Forms;
 
 namespace SkiaSharpDemo
 {
-	public class GraphicsOval : GraphicsElement
+	public class Oval : GraphicsElement
 	{
 		private SKPaint paint;
 
-		public GraphicsOval()
+		public Oval()
 		{
 			paint = new SKPaint();
+			paint.IsAntialias = true;
 		}
-
-		public float Left { get; set; }
-
-		public float Top { get; set; }
-
-		public float Width { get; set; }
-
-		public float Height { get; set; }
-
-		public Color FillColor { get; set; }
-
-		public Color StrokeColor { get; set; }
-
-		public float StrokeWidth { get; set; }
 
 		public override void OnPaint(SKPaintSurfaceEventArgs e)
 		{
