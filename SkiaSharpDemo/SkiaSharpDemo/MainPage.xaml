@@ -12,6 +12,7 @@
                 <g:Oval Top="10" Left="10" Width="10" Height="10" StrokeColor="Blue" StrokeWidth="2" />
                 <g:Oval Top="50" Left="60" Width="50" Height="100" StrokeColor="Green" StrokeWidth="6" />
             </g:Rectangle>
+            <g:Line Top="5" Left="5" Width="200" Height="150" StrokeColor="Purple" StrokeWidth="3" />
         </g:GraphicsCanvas>
     </Grid>
 
