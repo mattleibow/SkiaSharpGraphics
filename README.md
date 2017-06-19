@@ -29,7 +29,7 @@ It can produce an image:
 
 ![output](images/drawing.png)
 
-This is way coller and less work than having to write out a big chunk of C# code.
+This is way cooler and less work than having to write out a big chunk of C# code.
 
 Right now I have a very crude engine, but can be improved. It supports:
 
