@@ -3,7 +3,7 @@ using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using Xamarin.Forms;
 
-namespace SkiaSharpDemo
+namespace SkiaSharpDemo.Graphics
 {
 	[ContentProperty("Children")]
 	public class GraphicsCanvas : SKCanvasView
@@ -21,8 +21,7 @@ namespace SkiaSharpDemo
 		{
 			base.OnChildAdded(child);
 
-			var element = child as GraphicsElement;
-			if (element != null)
+			if (child is GraphicsElement element)
 			{
 				(child.Parent as GraphicsCanvas)?.children.Remove(element);
 				children.Add(element);
@@ -33,8 +32,7 @@ namespace SkiaSharpDemo
 		{
 			base.OnChildRemoved(child);
 
-			var element = child as GraphicsElement;
-			if (element != null)
+			if (child is GraphicsElement element)
 			{
 				children.Remove(element);
 			}
@@ -44,11 +42,20 @@ namespace SkiaSharpDemo
 		{
 			base.OnPaintSurface(e);
 
-			e.Surface.Canvas.Clear(SKColors.AliceBlue);
+			var canvas = e.Surface.Canvas;
+
+			canvas.Clear(SKColors.Transparent);
+
+			// apply scaling
+			var scale = e.Info.Width / Width;
+			canvas.Scale((float)scale);
 
 			foreach (var child in children)
 			{
-				child.OnPaint(e);
+				if (child.IsVisibile)
+				{
+					child.Paint(canvas);
+				}
 			}
 		}
 	}
