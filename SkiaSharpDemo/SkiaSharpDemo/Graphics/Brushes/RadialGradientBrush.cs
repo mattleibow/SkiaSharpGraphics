@@ -1,28 +1,39 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using SkiaSharp;
+using Xamarin.Forms;
 
 namespace SkiaSharpDemo.Graphics
 {
 	public class RadialGradientBrush : GradientBrush
 	{
-		//public RadialGradientBrush(Color startColor, Color endColor)
-		//{
-		//}
+		private SKShader shader;
 
-		//public RadialGradientBrush(GradientStopCollection gradientStopCollection)
-		//{
-		//}
+		public RadialGradientBrush()
+		{
+		}
 
-		//public RadialGradientBrush()
-		//{
-		//}
+		public RadialGradientBrush(Color startColor, Color endColor)
+		{
+			GradientStops.Add(new GradientStop(startColor, 0.0f));
+			GradientStops.Add(new GradientStop(endColor, 1.0f));
+		}
 
-		//public Point Center { get; set; }
+		public RadialGradientBrush(GradientStopCollection gradientStopCollection)
+			: base(gradientStopCollection)
+		{
+		}
 
-		//public Point GradientOrigin { get; set; }
+		public Point Center { get; set; } = new Point(0.5, 0.5);
 
-		//public float RadiusX { get; set; }
+		public Point GradientOrigin { get; set; } = new Point(0.5, 0.5);
 
-		//public float RadiusY { get; set; }
+		public double RadiusX { get; set; } = 0.5f;
+
+		public double RadiusY { get; set; } = 0.5f;
+
+		protected override SKShader GetShader(SKRect bounds)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

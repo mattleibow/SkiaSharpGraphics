@@ -11,7 +11,7 @@ namespace SkiaSharpDemo.Graphics
 			if (path == null)
 			{
 				path = new SKPath();
-				var rect = SKRect.Create(0, 0, Width, Height);
+				var rect = SKRect.Create(0, 0, (float)Width, (float)Height);
 				path.AddOval(rect);
 			}
 

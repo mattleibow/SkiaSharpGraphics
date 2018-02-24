@@ -2,12 +2,12 @@
 {
 	public class ScaleTransform : Transform
 	{
-		//public float ScaleY { get; set; }
+		//public double ScaleY { get; set; }
 
-		//public float ScaleX { get; set; }
+		//public double ScaleX { get; set; }
 
-		//public float CenterY { get; set; }
+		//public double CenterY { get; set; }
 
-		//public float CenterX { get; set; }
+		//public double CenterX { get; set; }
 	}
 }

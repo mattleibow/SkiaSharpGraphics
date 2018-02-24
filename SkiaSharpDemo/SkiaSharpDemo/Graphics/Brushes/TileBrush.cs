@@ -1,10 +1,10 @@
 ﻿namespace SkiaSharpDemo.Graphics
 {
-	public class TileBrush : Brush
+	public abstract class TileBrush : Brush
 	{
-		//public TileBrush()
-		//{
-		//}
+		protected TileBrush()
+		{
+		}
 
 		//public Stretch Stretch { get; set; }
 

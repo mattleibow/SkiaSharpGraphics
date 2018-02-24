@@ -13,7 +13,7 @@ namespace SkiaSharpDemo.Graphics
 
 		public IList<GraphicsElement> Children => children;
 
-		//public float Opacity { get; set; } = 1.0f;
+		//public double Opacity { get; set; } = 1.0f;
 
 		public bool IsVisibile { get; set; } = true;
 
@@ -21,13 +21,13 @@ namespace SkiaSharpDemo.Graphics
 
 		public bool ClipToBounds { get; set; } = false;
 
-		public float Left { get; set; } = 0;
+		public double Left { get; set; } = 0;
 
-		public float Top { get; set; } = 0;
+		public double Top { get; set; } = 0;
 
-		public float Width { get; set; } = 0;
+		public double Width { get; set; } = 0;
 
-		public float Height { get; set; } = 0;
+		public double Height { get; set; } = 0;
 
 		protected override void OnChildAdded(Element child)
 		{
@@ -54,12 +54,14 @@ namespace SkiaSharpDemo.Graphics
 		{
 			using (new SKAutoCanvasRestore(canvas, true))
 			{
+				var bounds = SKRect.Create((float)Left, (float)Top, (float)Width, (float)Height);
+
 				if (ClipToBounds)
 				{
-					canvas.ClipRect(SKRect.Create(Left, Top, Width, Height), SKClipOperation.Intersect, true);
+					canvas.ClipRect(bounds, SKClipOperation.Intersect, true);
 				}
 
-				canvas.Translate(Left, Top);
+				canvas.Translate((float)Left, (float)Top);
 
 				OnPaint(canvas);
 

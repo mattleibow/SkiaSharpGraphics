@@ -5,6 +5,10 @@ namespace SkiaSharpDemo.Graphics
 {
 	public class GeneralTransform
 	{
+		protected GeneralTransform()
+		{
+		}
+
 		//public Point TransformPoint(Point point)
 		//{
 		//	throw new NotImplementedException();

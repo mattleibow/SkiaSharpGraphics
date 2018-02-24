@@ -17,10 +17,12 @@ namespace SkiaSharpDemo.Graphics
 
 		public Color Color { get; set; } = Color.Transparent;
 
-		public override SKPaint GetPaint()
+		public override SKPaint GetPaint(SKRect bounds)
 		{
-			var paint = base.GetPaint();
+			var paint = base.GetPaint(bounds);
+
 			paint.Color = Color.ToSKColor();
+
 			return paint;
 		}
 	}

@@ -2,22 +2,22 @@
 {
 	public class CompositeTransform : Transform
 	{
-		//public float TranslateY { get; set; }
+		//public double TranslateY { get; set; }
 
-		//public float TranslateX { get; set; }
+		//public double TranslateX { get; set; }
 
-		//public float SkewY { get; set; }
+		//public double SkewY { get; set; }
 
-		//public float SkewX { get; set; }
+		//public double SkewX { get; set; }
 
-		//public float ScaleY { get; set; }
+		//public double ScaleY { get; set; }
 
-		//public float ScaleX { get; set; }
+		//public double ScaleX { get; set; }
 
-		//public float Rotation { get; set; }
+		//public double Rotation { get; set; }
 
-		//public float CenterY { get; set; }
+		//public double CenterY { get; set; }
 
-		//public float CenterX { get; set; }
+		//public double CenterX { get; set; }
 	}
 }

@@ -9,23 +9,27 @@ namespace SkiaSharpDemo.Graphics
 		private SKPaint fillPaint;
 		private SKPaint strokePaint;
 
-		//public SingleCollection StrokeDashArray { get; set; } = ?;
+		protected Shape()
+		{
+		}
+
+		//public DoubleCollection StrokeDashArray { get; set; } = ?;
 
 		public Brush Stroke { get; set; } = null;
 
 		//public PenLineCap StrokeDashCap { get; set; } = ?;
 
-		//public float StrokeDashOffset { get; set; } = ?;
+		//public double StrokeDashOffset { get; set; } = ?;
 
 		public Brush Fill { get; set; } = null;
 
-		public float StrokeThickness { get; set; } = 1.0f;
+		public double StrokeThickness { get; set; } = 1.0f;
 
 		//public PenLineCap StrokeStartLineCap { get; set; } = ?;
 
 		//public PenLineCap StrokeEndLineCap { get; set; } = ?;
 
-		//public float StrokeMiterLimit { get; set; } = ?;
+		//public double StrokeMiterLimit { get; set; } = ?;
 
 		//public PenLineJoin StrokeLineJoin { get; set; } = ?;
 
@@ -36,7 +40,7 @@ namespace SkiaSharpDemo.Graphics
 			return null;
 		}
 
-		public virtual SKPaint GetFillPaint()
+		public virtual SKPaint GetFillPaint(SKRect bounds)
 		{
 			if (Fill == null)
 			{
@@ -45,14 +49,14 @@ namespace SkiaSharpDemo.Graphics
 
 			if (fillPaint == null)
 			{
-				fillPaint = Fill.GetPaint().Clone();
+				fillPaint = Fill.GetPaint(bounds).Clone();
 			}
 
 			fillPaint.Style = SKPaintStyle.Fill;
 			return fillPaint;
 		}
 
-		public virtual SKPaint GetStrokePaint()
+		public virtual SKPaint GetStrokePaint(SKRect bounds)
 		{
 			if (Stroke == null)
 			{
@@ -61,11 +65,11 @@ namespace SkiaSharpDemo.Graphics
 
 			if (strokePaint == null)
 			{
-				strokePaint = Stroke.GetPaint().Clone();
+				strokePaint = Stroke.GetPaint(bounds).Clone();
 			}
 
 			strokePaint.Style = SKPaintStyle.Stroke;
-			strokePaint.StrokeWidth = StrokeThickness;
+			strokePaint.StrokeWidth = (float)StrokeThickness;
 			return strokePaint;
 		}
 
@@ -73,22 +77,21 @@ namespace SkiaSharpDemo.Graphics
 		{
 			base.OnPaint(canvas);
 
-			var fill = GetFillPaint();
-			var stroke = GetStrokePaint();
-			if (fill != null || stroke != null)
+			var path = GetPath();
+			if (path != null)
 			{
-				var path = GetPath();
-				if (path != null)
-				{
-					if (fill != null)
-					{
-						canvas.DrawPath(path, fill);
-					}
+				var bounds = path.Bounds;
 
-					if (stroke != null)
-					{
-						canvas.DrawPath(path, stroke);
-					}
+				var fill = GetFillPaint(bounds);
+				if (fill != null)
+				{
+					canvas.DrawPath(path, fill);
+				}
+
+				var stroke = GetStrokePaint(bounds);
+				if (stroke != null)
+				{
+					canvas.DrawPath(path, stroke);
 				}
 			}
 		}

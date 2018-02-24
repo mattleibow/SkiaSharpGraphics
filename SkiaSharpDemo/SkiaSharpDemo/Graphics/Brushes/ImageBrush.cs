@@ -4,9 +4,9 @@ namespace SkiaSharpDemo.Graphics
 {
 	public class ImageBrush : TileBrush
 	{
-		//public ImageBrush()
-		//{
-		//}
+		public ImageBrush()
+		{
+		}
 
 		//public ImageSource ImageSource { get; set; }
 	}

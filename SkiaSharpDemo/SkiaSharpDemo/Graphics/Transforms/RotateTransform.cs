@@ -2,10 +2,10 @@
 {
 	public sealed class RotateTransform : Transform
 	{
-		//public float CenterY { get; set; }
+		//public double CenterY { get; set; }
 
-		//public float CenterX { get; set; }
+		//public double CenterX { get; set; }
 
-		//public float Angle { get; set; }
+		//public double Angle { get; set; }
 	}
 }

@@ -17,9 +17,9 @@ namespace SkiaSharpDemo.Graphics
 
 		//public Transform RelativeTransform { get; set; } = ?;
 
-		//public float Opacity { get; set; } = ?;
+		//public double Opacity { get; set; } = ?;
 
-		public virtual SKPaint GetPaint()
+		public virtual SKPaint GetPaint(SKRect bounds)
 		{
 			if (paint == null)
 			{

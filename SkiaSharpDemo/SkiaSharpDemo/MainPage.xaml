@@ -10,8 +10,16 @@
         <g:GraphicsCanvas BackgroundColor="Azure">
 
             <g:Rectangle Top="20" Left="10" Width="120" Height="110"
-                         RadiusX="15" RadiusY="15" 
-                         Fill="Red">
+                         RadiusX="15" RadiusY="15">
+                <g:Rectangle.Fill>
+                    <g:LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                        <g:GradientStop Color="Yellow" Offset="0" />
+                        <g:GradientStop Color="Red" Offset="0.25" />
+                        <g:GradientStop Color="Blue" Offset="0.75" />
+                        <g:GradientStop Color="LimeGreen" Offset="1" />
+                    </g:LinearGradientBrush>
+                </g:Rectangle.Fill>
+
                 <g:Ellipse Top="20" Left="10" Width="50" Height="50"
                            StrokeThickness="2" Stroke="Blue" />
             </g:Rectangle>
@@ -40,7 +48,7 @@
             </g:Polygon>
 
             <g:Polygon Top="50" Left="220"
-                       StrokeThickness="3" Stroke="Blue"
+                       Stroke="Blue" StrokeThickness="3"
                        Points="0,20 50,20 50,50 25,50 15,5" />
 
             <g:Polyline Top="150" Left="50" StrokeThickness="3" Stroke="Blue">
@@ -51,6 +59,15 @@
                     <Point X="25" Y="50" />
                     <Point X="15" Y="5" />
                 </g:Polyline.Points>
+                <g:Polyline.Fill>
+                    <g:LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                        <g:GradientStop Color="Yellow" Offset="0" />
+                        <g:GradientStop Color="Red" Offset="0.25" />
+                        <g:GradientStop Color="Blue" Offset="0.75" />
+                        <g:GradientStop Color="LimeGreen" Offset="1" />
+                    </g:LinearGradientBrush>
+                </g:Polyline.Fill>
+
             </g:Polyline>
 
             <g:Path Top="210" Left="110"

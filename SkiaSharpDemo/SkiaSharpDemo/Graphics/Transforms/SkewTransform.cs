@@ -2,12 +2,12 @@
 {
 	public class SkewTransform : Transform
 	{
-		//public float CenterY { get; set; }
+		//public double CenterY { get; set; }
 
-		//public float CenterX { get; set; }
+		//public double CenterX { get; set; }
 
-		//public float AngleY { get; set; }
+		//public double AngleY { get; set; }
 
-		//public float AngleX { get; set; }
+		//public double AngleX { get; set; }
 	}
 }
