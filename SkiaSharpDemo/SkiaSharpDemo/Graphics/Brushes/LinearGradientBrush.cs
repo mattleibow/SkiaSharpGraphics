@@ -54,16 +54,18 @@ namespace SkiaSharpDemo.Graphics
 
 		protected override SKShader GetShader(SKRect bounds)
 		{
-			if (shader == null)
+			if (shader != null)
 			{
-				var mode = GetShaderTileMode();
-				var start = GetRelative(StartPoint.ToSKPoint(), bounds);
-				var end = GetRelative(EndPoint.ToSKPoint(), bounds);
-				var colors = GradientStops.Select(s => s.Color.ToSKColor()).ToArray();
-				var positions = GradientStops.Select(s => (float)s.Offset).ToArray();
-
-				shader = SKShader.CreateLinearGradient(start, end, colors, positions, mode);
+				return shader;
 			}
+
+			var mode = GetShaderTileMode();
+			var start = GetRelative(StartPoint.ToSKPoint(), bounds);
+			var end = GetRelative(EndPoint.ToSKPoint(), bounds);
+			var colors = GradientStops.Select(s => s.Color.ToSKColor()).ToArray();
+			var positions = GradientStops.Select(s => (float)s.Offset).ToArray();
+
+			shader = SKShader.CreateLinearGradient(start, end, colors, positions, mode);
 
 			return shader;
 		}

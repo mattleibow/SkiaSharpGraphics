@@ -1,14 +1,29 @@
-﻿using SkiaSharp;
-using System;
+﻿using System;
+using Xamarin.Forms;
+using SkiaSharp;
 
 namespace SkiaSharpDemo.Graphics
 {
 	public class Path : Shape
 	{
-		public string Data { get; set; } = null;
+		public static readonly BindableProperty DataProperty = BindableProperty.Create(
+			nameof(Data), typeof(string), typeof(Path), (string)null, propertyChanged: OnDataChanged);
+
+		private SKPath path;
+
+		public string Data
+		{
+			get { return (string)GetValue(DataProperty); }
+			set { SetValue(DataProperty, value); }
+		}
 
 		public override SKPath GetPath()
 		{
+			if (path != null)
+			{
+				return path;
+			}
+
 			if (string.IsNullOrWhiteSpace(Data))
 			{
 				return null;
@@ -52,11 +67,22 @@ namespace SkiaSharpDemo.Graphics
 				}
 			}
 
-			var path = SKPath.ParseSvgPathData(Data.Substring(index));
+			path = SKPath.ParseSvgPathData(Data.Substring(index));
 
 			path.FillType = fillRule;
 
 			return path;
+		}
+
+		private static void OnDataChanged(BindableObject bindable, object oldValue, object newValue)
+		{
+			if (bindable is Path pathShape)
+			{
+				pathShape.path?.Dispose();
+				pathShape.path = null;
+			}
+
+			OnGraphicsChanged(bindable, oldValue, newValue);
 		}
 	}
 }

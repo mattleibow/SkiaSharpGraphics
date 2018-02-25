@@ -21,16 +21,18 @@ namespace SkiaSharpDemo.Graphics
 
 		public virtual SKPaint GetPaint(SKRect bounds)
 		{
-			if (paint == null)
+			if (paint != null)
 			{
-				paint = new SKPaint
-				{
-					IsAntialias = true,
-					FilterQuality = SKFilterQuality.High,
-					Color = SKColors.Transparent,
-					Style = SKPaintStyle.Fill
-				};
+				return paint;
 			}
+
+			paint = new SKPaint
+			{
+				IsAntialias = true,
+				FilterQuality = SKFilterQuality.High,
+				Color = SKColors.Transparent,
+				Style = SKPaintStyle.Fill
+			};
 
 			return paint;
 		}

@@ -1,53 +1,76 @@
-﻿using System;
-using System.Collections.Generic;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using SkiaSharp;
-using SkiaSharp.Views.Forms;
 
 namespace SkiaSharpDemo.Graphics
 {
 	[ContentProperty("Children")]
-	public class GraphicsElement : Element
+	public class GraphicsElement : Element, IGraphicsElementContainer
 	{
-		private readonly List<GraphicsElement> children = new List<GraphicsElement>();
+		public static readonly BindableProperty IsVisibileProperty = BindableProperty.Create(
+			nameof(IsVisibile), typeof(bool), typeof(GraphicsElement), true, propertyChanged: OnGraphicsChanged);
 
-		public IList<GraphicsElement> Children => children;
+		public static readonly BindableProperty LeftProperty = BindableProperty.Create(
+			nameof(Left), typeof(double), typeof(GraphicsElement), 0.0, propertyChanged: OnGraphicsChanged);
+
+		public static readonly BindableProperty TopProperty = BindableProperty.Create(
+			nameof(Top), typeof(double), typeof(GraphicsElement), 0.0, propertyChanged: OnGraphicsChanged);
+
+		public static readonly BindableProperty WidthProperty = BindableProperty.Create(
+			nameof(Width), typeof(double), typeof(GraphicsElement), 0.0, propertyChanged: OnGraphicsChanged);
+
+		public static readonly BindableProperty HeightProperty = BindableProperty.Create(
+			nameof(Height), typeof(double), typeof(GraphicsElement), 0.0, propertyChanged: OnGraphicsChanged);
+
+		public static readonly BindableProperty ClipToBoundsProperty = BindableProperty.Create(
+			nameof(ClipToBounds), typeof(bool), typeof(GraphicsElement), false, propertyChanged: OnGraphicsChanged);
+
+		private readonly GraphicsElementCollection children;
+
+		public GraphicsElement()
+		{
+			children = new GraphicsElementCollection(this);
+		}
+
+		public GraphicsElementCollection Children => children;
 
 		//public double Opacity { get; set; } = 1.0f;
 
-		public bool IsVisibile { get; set; } = true;
-
 		//public Rect Clip { get; set; } = ?;
 
-		public bool ClipToBounds { get; set; } = false;
-
-		public double Left { get; set; } = 0;
-
-		public double Top { get; set; } = 0;
-
-		public double Width { get; set; } = 0;
-
-		public double Height { get; set; } = 0;
-
-		protected override void OnChildAdded(Element child)
+		public bool IsVisibile
 		{
-			base.OnChildAdded(child);
-
-			if (child is GraphicsElement element)
-			{
-				(child.Parent as GraphicsElement)?.children.Remove(element);
-				children.Add(element);
-			}
+			get { return (bool)GetValue(IsVisibileProperty); }
+			set { SetValue(IsVisibileProperty, value); }
 		}
 
-		protected override void OnChildRemoved(Element child)
+		public double Left
 		{
-			base.OnChildRemoved(child);
+			get { return (double)GetValue(LeftProperty); }
+			set { SetValue(LeftProperty, value); }
+		}
 
-			if (child is GraphicsElement element)
-			{
-				children.Remove(element);
-			}
+		public double Top
+		{
+			get { return (double)GetValue(TopProperty); }
+			set { SetValue(TopProperty, value); }
+		}
+
+		public double Width
+		{
+			get { return (double)GetValue(WidthProperty); }
+			set { SetValue(WidthProperty, value); }
+		}
+
+		public double Height
+		{
+			get { return (double)GetValue(HeightProperty); }
+			set { SetValue(HeightProperty, value); }
+		}
+
+		public bool ClipToBounds
+		{
+			get { return (bool)GetValue(ClipToBoundsProperty); }
+			set { SetValue(ClipToBoundsProperty, value); }
 		}
 
 		public void Paint(SKCanvas canvas)
@@ -74,6 +97,31 @@ namespace SkiaSharpDemo.Graphics
 
 		protected virtual void OnPaint(SKCanvas canvas)
 		{
+		}
+
+		protected IGraphicsCanvasRenderer GetGraphicsCanvasRenderer()
+		{
+			var parent = Parent;
+			while (parent != null)
+			{
+				if (parent is IGraphicsCanvasRenderer renderer)
+					return renderer;
+				parent = parent.Parent;
+			}
+			return null;
+		}
+
+		protected static void InvalidateGraphicsCanvas(GraphicsElement element)
+		{
+			element.GetGraphicsCanvasRenderer()?.Invalidate();
+		}
+
+		protected static void OnGraphicsChanged(BindableObject bindable, object oldValue, object newValue)
+		{
+			if (bindable is GraphicsElement element)
+			{
+				InvalidateGraphicsCanvas(element);
+			}
 		}
 	}
 }

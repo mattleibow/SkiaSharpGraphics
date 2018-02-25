@@ -9,7 +9,8 @@
     <Grid>
         <g:GraphicsCanvas BackgroundColor="Azure">
 
-            <g:Rectangle Top="20" Left="10" Width="120" Height="110"
+            <g:Rectangle x:Name="gradientRect"
+                         Top="20" Left="10" Width="120" Height="110"
                          RadiusX="15" RadiusY="15">
                 <g:Rectangle.Fill>
                     <g:LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
@@ -20,7 +21,8 @@
                     </g:LinearGradientBrush>
                 </g:Rectangle.Fill>
 
-                <g:Ellipse Top="20" Left="10" Width="50" Height="50"
+                <g:Ellipse x:Name="innerEllipse"
+                           Top="20" Left="10" Width="50" Height="50"
                            StrokeThickness="2" Stroke="Blue" />
             </g:Rectangle>
 
@@ -28,7 +30,9 @@
                          Fill="LightGoldenrodYellow" 
                          Stroke="DarkOrange" />
 
-            <g:Line Top="35" Left="20" X1="3" Y1="0" X2="100" Y2="100" StrokeThickness="12">
+            <g:Line x:Name="pinkLine"
+                    Top="35" Left="20" X1="3" Y1="0" X2="100" Y2="100" 
+                    StrokeThickness="12">
                 <g:Line.Stroke>
                     <g:SolidColorBrush Color="HotPink" />
                 </g:Line.Stroke>
@@ -83,6 +87,8 @@
                     Fill="Green" />
 
         </g:GraphicsCanvas>
+
+        <Button Clicked="OnClick" Text="Click Me!" HorizontalOptions="End" VerticalOptions="Start" />
     </Grid>
 
 </ContentPage>

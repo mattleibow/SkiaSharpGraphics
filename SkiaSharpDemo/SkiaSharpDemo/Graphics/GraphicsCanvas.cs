@@ -1,42 +1,26 @@
-﻿using System.Collections.Generic;
-using SkiaSharp;
+﻿using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using Xamarin.Forms;
 
 namespace SkiaSharpDemo.Graphics
 {
 	[ContentProperty("Children")]
-	public class GraphicsCanvas : SKCanvasView
+	public class GraphicsCanvas : SKCanvasView, IGraphicsElementContainer, IGraphicsCanvasRenderer
 	{
-		private readonly List<GraphicsElement> children;
+		private readonly GraphicsCanvasRenderer renderer;
 
 		public GraphicsCanvas()
 		{
-			children = new List<GraphicsElement>();
+			renderer = new GraphicsCanvasRenderer(this, InvalidateSurface);
 		}
 
-		public IList<GraphicsElement> Children => children;
+		public GraphicsElementCollection Children => renderer.Children;
 
-		protected override void OnChildAdded(Element child)
-		{
-			base.OnChildAdded(child);
+		void IGraphicsCanvasRenderer.Invalidate() => renderer.Invalidate();
 
-			if (child is GraphicsElement element)
-			{
-				(child.Parent as GraphicsCanvas)?.children.Remove(element);
-				children.Add(element);
-			}
-		}
+		public void SuspendRender() => renderer.SuspendRender();
 
-		protected override void OnChildRemoved(Element child)
-		{
-			base.OnChildRemoved(child);
-
-			if (child is GraphicsElement element)
-			{
-				children.Remove(element);
-			}
-		}
+		public void ResumeRender(bool performRender = false) => renderer.ResumeRender(performRender);
 
 		protected override void OnPaintSurface(SKPaintSurfaceEventArgs e)
 		{
@@ -50,7 +34,7 @@ namespace SkiaSharpDemo.Graphics
 			var scale = e.Info.Width / Width;
 			canvas.Scale((float)scale);
 
-			foreach (var child in children)
+			foreach (var child in Children)
 			{
 				if (child.IsVisibile)
 				{

@@ -1,11 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using Xamarin.Forms;
 using SkiaSharp;
-using SkiaSharp.Views.Forms;
 
 namespace SkiaSharpDemo.Graphics
 {
 	public class Shape : GraphicsElement
 	{
+		public static readonly BindableProperty FillProperty = BindableProperty.Create(
+			nameof(Fill), typeof(Brush), typeof(Shape), null, propertyChanged: OnFillChanged);
+
+		public static readonly BindableProperty StrokeProperty = BindableProperty.Create(
+			nameof(Stroke), typeof(Brush), typeof(Shape), null, propertyChanged: OnStrokeChanged);
+
+		public static readonly BindableProperty StrokeThicknessProperty = BindableProperty.Create(
+			nameof(StrokeThickness), typeof(double), typeof(Shape), 1.0, propertyChanged: OnStrokeChanged);
+
 		private SKPaint fillPaint;
 		private SKPaint strokePaint;
 
@@ -15,15 +23,9 @@ namespace SkiaSharpDemo.Graphics
 
 		//public DoubleCollection StrokeDashArray { get; set; } = ?;
 
-		public Brush Stroke { get; set; } = null;
-
 		//public PenLineCap StrokeDashCap { get; set; } = ?;
 
 		//public double StrokeDashOffset { get; set; } = ?;
-
-		public Brush Fill { get; set; } = null;
-
-		public double StrokeThickness { get; set; } = 1.0f;
 
 		//public PenLineCap StrokeStartLineCap { get; set; } = ?;
 
@@ -35,6 +37,24 @@ namespace SkiaSharpDemo.Graphics
 
 		//public Transform GeometryTransform { get; } = ?;
 
+		public Brush Fill
+		{
+			get { return (Brush)GetValue(FillProperty); }
+			set { SetValue(FillProperty, value); }
+		}
+
+		public Brush Stroke
+		{
+			get { return (Brush)GetValue(StrokeProperty); }
+			set { SetValue(StrokeProperty, value); }
+		}
+
+		public double StrokeThickness
+		{
+			get { return (double)GetValue(StrokeThicknessProperty); }
+			set { SetValue(StrokeThicknessProperty, value); }
+		}
+
 		public virtual SKPath GetPath()
 		{
 			return null;
@@ -42,34 +62,38 @@ namespace SkiaSharpDemo.Graphics
 
 		public virtual SKPaint GetFillPaint(SKRect bounds)
 		{
+			if (fillPaint != null)
+			{
+				return fillPaint;
+			}
+
 			if (Fill == null)
 			{
 				return null;
 			}
 
-			if (fillPaint == null)
-			{
-				fillPaint = Fill.GetPaint(bounds).Clone();
-			}
-
+			fillPaint = Fill.GetPaint(bounds).Clone();
 			fillPaint.Style = SKPaintStyle.Fill;
+
 			return fillPaint;
 		}
 
 		public virtual SKPaint GetStrokePaint(SKRect bounds)
 		{
+			if (strokePaint != null)
+			{
+				return strokePaint;
+			}
+
 			if (Stroke == null)
 			{
 				return null;
 			}
 
-			if (strokePaint == null)
-			{
-				strokePaint = Stroke.GetPaint(bounds).Clone();
-			}
-
+			strokePaint = Stroke.GetPaint(bounds).Clone();
 			strokePaint.Style = SKPaintStyle.Stroke;
 			strokePaint.StrokeWidth = (float)StrokeThickness;
+
 			return strokePaint;
 		}
 
@@ -94,6 +118,28 @@ namespace SkiaSharpDemo.Graphics
 					canvas.DrawPath(path, stroke);
 				}
 			}
+		}
+
+		private static void OnFillChanged(BindableObject bindable, object oldValue, object newValue)
+		{
+			if (bindable is Shape shape)
+			{
+				shape.fillPaint?.Dispose();
+				shape.fillPaint = null;
+			}
+
+			OnGraphicsChanged(bindable, oldValue, newValue);
+		}
+
+		private static void OnStrokeChanged(BindableObject bindable, object oldValue, object newValue)
+		{
+			if (bindable is Shape shape)
+			{
+				shape.strokePaint?.Dispose();
+				shape.strokePaint = null;
+			}
+
+			OnGraphicsChanged(bindable, oldValue, newValue);
 		}
 	}
 }
