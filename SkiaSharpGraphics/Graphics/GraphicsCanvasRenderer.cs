@@ -4,22 +4,22 @@ namespace SkiaSharpGraphics.Graphics
 {
 	public class GraphicsCanvasRenderer : IGraphicsCanvasRenderer
 	{
-		private readonly GraphicsElementCollection children;
+		private readonly GraphicsOperationCollection children;
 		private readonly Action onInvalidateSurface;
 
 		private int renderSuspendCount;
 		private bool renderPending;
 
-		public GraphicsCanvasRenderer(IGraphicsElementContainer container, Action onInvalidate)
+		public GraphicsCanvasRenderer(IGraphicsOperationContainer container, Action onInvalidate)
 		{
-			children = new GraphicsElementCollection(container);
+			children = new GraphicsOperationCollection(container);
 			onInvalidateSurface = onInvalidate;
 
 			renderSuspendCount = 0;
 			renderPending = false;
 		}
 
-		public GraphicsElementCollection Children => children;
+		public GraphicsOperationCollection Operations => children;
 
 		public void SuspendRender()
 		{

@@ -1,13 +1,13 @@
-﻿using SkiaSharp;
+﻿//using SkiaSharp;
 
-namespace SkiaSharpGraphics.Graphics
-{
-	public class ImageBrush : TileBrush
-	{
-		public ImageBrush()
-		{
-		}
+//namespace SkiaSharpGraphics.Graphics
+//{
+//	public class ImageBrush : TileBrush
+//	{
+//		public ImageBrush()
+//		{
+//		}
 
-		//public ImageSource ImageSource { get; set; }
-	}
-}
+//		//public ImageSource ImageSource { get; set; }
+//	}
+//}

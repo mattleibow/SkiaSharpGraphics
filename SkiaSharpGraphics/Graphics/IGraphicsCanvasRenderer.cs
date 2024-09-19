@@ -1,12 +1,12 @@
-﻿namespace SkiaSharpGraphics.Graphics
+﻿namespace SkiaSharpGraphics.Graphics;
+
+public interface IGraphicsCanvasRenderer
 {
-	public interface IGraphicsCanvasRenderer
-	{
-		GraphicsElementCollection Children { get; }
+    GraphicsOperationCollection Operations { get; }
 
-		void Invalidate();
+    void Invalidate();
 
-		void SuspendRender();
-		void ResumeRender(bool performRender = false);
-	}
+    void SuspendRender();
+
+    void ResumeRender(bool performRender = false);
 }

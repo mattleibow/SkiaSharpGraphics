@@ -1,147 +1,111 @@
-﻿using SkiaSharp;
-using Microsoft.Maui.Controls.Compatibility;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui;
+﻿//using Microsoft.Maui.Graphics.Converters;
+//using SkiaSharp;
+//using SkiaSharp.Views.Maui;
 
-namespace SkiaSharpGraphics.Graphics
-{
-	public class Shape : GraphicsElement
-	{
-		public static readonly BindableProperty FillProperty = BindableProperty.Create(
-			nameof(Fill), typeof(Brush), typeof(Shape), null, propertyChanged: OnFillChanged);
+//namespace SkiaSharpGraphics.Graphics;
 
-		public static readonly BindableProperty StrokeProperty = BindableProperty.Create(
-			nameof(Stroke), typeof(Brush), typeof(Shape), null, propertyChanged: OnStrokeChanged);
+//public class Paint
+//{
+//    private SKPaint? paint;
+//    private SKRect lastBounds;
 
-		public static readonly BindableProperty StrokeThicknessProperty = BindableProperty.Create(
-			nameof(StrokeThickness), typeof(double), typeof(Shape), 1.0, propertyChanged: OnStrokeChanged);
+//    protected void Invalidate()
+//    {
+//        if (paint is not null)
+//        {
+//            OnUpdate(paint, lastBounds);
+//        }
+//    }
 
-		private SKPaint fillPaint;
-		private SKPaint strokePaint;
+//    protected virtual void OnUpdate(SKPaint paint, SKRect bounds)
+//    {
+//        paint.IsAntialias = true;
+//        paint.FilterQuality = SKFilterQuality.High;
+//        paint.Color = SKColors.Transparent;
+//    }
 
-		protected Shape()
-		{
-		}
+//    public virtual SKPaint GetPaint(SKRect bounds)
+//    {
+//        if (paint is not null && lastBounds == bounds)
+//            return paint;
 
-		//public DoubleCollection StrokeDashArray { get; set; } = ?;
+//        lastBounds = bounds;
 
-		//public PenLineCap StrokeDashCap { get; set; } = ?;
+//        paint ??= new SKPaint();
 
-		//public double StrokeDashOffset { get; set; } = ?;
+//        OnUpdate(paint, bounds);
 
-		//public PenLineCap StrokeStartLineCap { get; set; } = ?;
+//        return paint;
+//    }
+//}
 
-		//public PenLineCap StrokeEndLineCap { get; set; } = ?;
+//public class Stroke : Paint
+//{
+//    public double Thickness { get; set; }
 
-		//public double StrokeMiterLimit { get; set; } = ?;
+//    protected override void OnUpdate(SKPaint paint, SKRect bounds)
+//    {
+//        base.OnUpdate(paint, bounds);
 
-		//public PenLineJoin StrokeLineJoin { get; set; } = ?;
+//        paint.Style = SKPaintStyle.Stroke;
+//        paint.StrokeWidth = (float)Thickness;
+//    }
+//}
 
-		//public Transform GeometryTransform { get; } = ?;
+//public abstract class Fill : Paint
+//{
+//    protected override void OnUpdate(SKPaint paint, SKRect bounds)
+//    {
+//        base.OnUpdate(paint, bounds);
+        
+//        paint.Style = SKPaintStyle.Fill;
+//    }
+//}
 
-		public Brush Fill
-		{
-			get { return (Brush)GetValue(FillProperty); }
-			set { SetValue(FillProperty, value); }
-		}
+//public abstract class Shape : GraphicsOperation
+//{
+//    public static readonly BindableProperty FillProperty = BindableProperty.Create(
+//        nameof(Fill), typeof(Brush), typeof(Fill), null, propertyChanged: OnGraphicsChanged);
 
-		public Brush Stroke
-		{
-			get { return (Brush)GetValue(StrokeProperty); }
-			set { SetValue(StrokeProperty, value); }
-		}
+//    public static readonly BindableProperty StrokeProperty = BindableProperty.Create(
+//        nameof(Stroke), typeof(Brush), typeof(Stroke), null, propertyChanged: OnGraphicsChanged);
 
-		public double StrokeThickness
-		{
-			get { return (double)GetValue(StrokeThicknessProperty); }
-			set { SetValue(StrokeThicknessProperty, value); }
-		}
+//    protected Shape()
+//    {
+//    }
 
-		public virtual SKPath GetPath()
-		{
-			return null;
-		}
+//    public Fill? Fill
+//    {
+//        get { return (Fill?)GetValue(FillProperty); }
+//        set { SetValue(FillProperty, value); }
+//    }
 
-		public virtual SKPaint GetFillPaint(SKRect bounds)
-		{
-			if (fillPaint != null)
-			{
-				return fillPaint;
-			}
+//    public Stroke? Stroke
+//    {
+//        get { return (Stroke?)GetValue(StrokeProperty); }
+//        set { SetValue(StrokeProperty, value); }
+//    }
 
-			if (Fill == null)
-			{
-				return null;
-			}
+//    public abstract SKPath GetPath();
 
-			fillPaint = Fill.GetPaint(bounds).Clone();
-			fillPaint.Style = SKPaintStyle.Fill;
+//    protected override void OnExecute(SKCanvas canvas)
+//    {
+//        var path = GetPath();
+//        if (path != null)
+//        {
+//            var bounds = path.Bounds;
 
-			return fillPaint;
-		}
+//            var fill = Fill?.GetPaint(bounds);
+//            if (fill is not null)
+//            {
+//                canvas.DrawPath(path, fill);
+//            }
 
-		public virtual SKPaint GetStrokePaint(SKRect bounds)
-		{
-			if (strokePaint != null)
-			{
-				return strokePaint;
-			}
-
-			if (Stroke == null)
-			{
-				return null;
-			}
-
-			strokePaint = Stroke.GetPaint(bounds).Clone();
-			strokePaint.Style = SKPaintStyle.Stroke;
-			strokePaint.StrokeWidth = (float)StrokeThickness;
-
-			return strokePaint;
-		}
-
-		protected override void OnPaint(SKCanvas canvas)
-		{
-			base.OnPaint(canvas);
-
-			var path = GetPath();
-			if (path != null)
-			{
-				var bounds = path.Bounds;
-
-				var fill = GetFillPaint(bounds);
-				if (fill != null)
-				{
-					canvas.DrawPath(path, fill);
-				}
-
-				var stroke = GetStrokePaint(bounds);
-				if (stroke != null)
-				{
-					canvas.DrawPath(path, stroke);
-				}
-			}
-		}
-
-		private static void OnFillChanged(BindableObject bindable, object oldValue, object newValue)
-		{
-			if (bindable is Shape shape)
-			{
-				shape.fillPaint?.Dispose();
-				shape.fillPaint = null;
-			}
-
-			OnGraphicsChanged(bindable, oldValue, newValue);
-		}
-
-		private static void OnStrokeChanged(BindableObject bindable, object oldValue, object newValue)
-		{
-			if (bindable is Shape shape)
-			{
-				shape.strokePaint?.Dispose();
-				shape.strokePaint = null;
-			}
-
-			OnGraphicsChanged(bindable, oldValue, newValue);
-		}
-	}
-}
+//            var stroke = Stroke?.GetPaint(bounds);
+//            if (stroke is not null)
+//            {
+//                canvas.DrawPath(path, stroke);
+//            }
+//        }
+//    }
+//}

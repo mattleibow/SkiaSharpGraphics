@@ -1,9 +1,9 @@
-﻿namespace SkiaSharpGraphics.Graphics
-{
-	public enum GradientSpreadMethod
-	{
-		Pad = 0,
-		Reflect = 1,
-		Repeat = 2
-	}
-}
+﻿//namespace SkiaSharpGraphics.Graphics
+//{
+//	public enum GradientSpreadMethod
+//	{
+//		Pad = 0,
+//		Reflect = 1,
+//		Repeat = 2
+//	}
+//}

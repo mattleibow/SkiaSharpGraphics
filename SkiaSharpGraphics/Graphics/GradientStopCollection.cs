@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿//using System.Collections.Generic;
 
-namespace SkiaSharpGraphics.Graphics
-{
-	public class GradientStopCollection : List<GradientStop>
-	{
-	}
-}
+//namespace SkiaSharpGraphics.Graphics
+//{
+//	public class GradientStopCollection : List<GradientStop>
+//	{
+//	}
+//}

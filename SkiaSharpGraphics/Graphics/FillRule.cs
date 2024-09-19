@@ -1,8 +1,8 @@
-﻿namespace SkiaSharpGraphics.Graphics
-{
-	public enum FillRule
-	{
-		EvenOdd = 0,
-		Nonzero = 1
-	}
-}
+﻿//namespace SkiaSharpGraphics.Graphics
+//{
+//	public enum FillRule
+//	{
+//		EvenOdd = 0,
+//		Nonzero = 1
+//	}
+//}

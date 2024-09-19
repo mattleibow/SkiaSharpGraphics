@@ -1,7 +1,7 @@
-﻿namespace SkiaSharpGraphics.Graphics
-{
-	public class Transform : GeneralTransform
-	{
+﻿//namespace SkiaSharpGraphics.Graphics
+//{
+//	public class Transform : GeneralTransform
+//	{
 
-	}
-}
+//	}
+//}

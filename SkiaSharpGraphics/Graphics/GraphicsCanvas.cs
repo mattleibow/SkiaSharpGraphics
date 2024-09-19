@@ -1,49 +1,44 @@
 ﻿using SkiaSharp;
-using Microsoft.Maui.Controls.Compatibility;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui;
-using SkiaSharp.Views.Maui.Controls;
 using SkiaSharp.Views.Maui;
+using SkiaSharp.Views.Maui.Controls;
 
 namespace SkiaSharpGraphics.Graphics
 {
-	[ContentProperty("Children")]
-	public class GraphicsCanvas : SKCanvasView, IGraphicsElementContainer, IGraphicsCanvasRenderer
-	{
-		private readonly GraphicsCanvasRenderer renderer;
+    [ContentProperty(nameof(Operations))]
+    public class GraphicsCanvas : SKCanvasView, IGraphicsOperationContainer, IGraphicsCanvasRenderer
+    {
+        private readonly GraphicsCanvasRenderer renderer;
 
-		public GraphicsCanvas()
-		{
-			renderer = new GraphicsCanvasRenderer(this, InvalidateSurface);
-		}
+        public GraphicsCanvas()
+        {
+            IgnorePixelScaling = true;
 
-		public GraphicsElementCollection Children => renderer.Children;
+            renderer = new GraphicsCanvasRenderer(this, InvalidateSurface);
+        }
 
-		void IGraphicsCanvasRenderer.Invalidate() => renderer.Invalidate();
+        public GraphicsOperationCollection Operations => renderer.Operations;
 
-		public void SuspendRender() => renderer.SuspendRender();
+        void IGraphicsCanvasRenderer.Invalidate() => renderer.Invalidate();
 
-		public void ResumeRender(bool performRender = false) => renderer.ResumeRender(performRender);
+        public void SuspendRender() => renderer.SuspendRender();
 
-		protected override void OnPaintSurface(SKPaintSurfaceEventArgs e)
-		{
-			base.OnPaintSurface(e);
+        public void ResumeRender(bool performRender = false) => renderer.ResumeRender(performRender);
 
-			var canvas = e.Surface.Canvas;
+        protected override void OnPaintSurface(SKPaintSurfaceEventArgs e)
+        {
+            base.OnPaintSurface(e);
 
-			canvas.Clear(SKColors.Transparent);
+            var canvas = e.Surface.Canvas;
 
-			// apply scaling
-			var scale = e.Info.Width / Width;
-			canvas.Scale((float)scale);
+            canvas.Clear(SKColors.Transparent);
 
-			foreach (var child in Children)
-			{
-				if (child.IsVisibile)
-				{
-					child.Paint(canvas);
-				}
-			}
-		}
-	}
+            foreach (var operation in Operations)
+            {
+                if (!operation.IsEnabled)
+                    continue;
+
+                operation.Execute(canvas);
+            }
+        }
+    }
 }
