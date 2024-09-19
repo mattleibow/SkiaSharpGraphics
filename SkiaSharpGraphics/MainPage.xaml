@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:g="clr-namespace:SkiaSharpGraphics.Graphics"
+             x:Class="SkiaSharpGraphics.MainPage">
+
+    <Grid>
+        <g:GraphicsCanvas BackgroundColor="Azure">
+
+            <g:Rectangle x:Name="gradientRect"
+                         Top="20" Left="10" Width="120" Height="110"
+                         RadiusX="15" RadiusY="15">
+                <g:Rectangle.Fill>
+                    <g:LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                        <g:GradientStop Color="Yellow" Offset="0" />
+                        <g:GradientStop Color="Red" Offset="0.25" />
+                        <g:GradientStop Color="Blue" Offset="0.75" />
+                        <g:GradientStop Color="LimeGreen" Offset="1" />
+                    </g:LinearGradientBrush>
+                </g:Rectangle.Fill>
+
+                <g:Ellipse x:Name="innerEllipse"
+                           Top="20" Left="10" Width="50" Height="50"
+                           StrokeThickness="2" Stroke="Blue" />
+            </g:Rectangle>
+
+            <g:Rectangle Top="150" Left="150" Width="120" Height="110"
+                         Fill="LightGoldenrodYellow" 
+                         Stroke="DarkOrange" />
+
+            <g:Line x:Name="pinkLine"
+                    Top="35" Left="20" X1="3" Y1="0" X2="100" Y2="100" 
+                    StrokeThickness="12">
+                <g:Line.Stroke>
+                    <g:SolidColorBrush Color="HotPink" />
+                </g:Line.Stroke>
+            </g:Line>
+
+            <g:Polygon Top="50" Left="150" StrokeThickness="3">
+                <g:Polygon.Stroke>
+                    <g:SolidColorBrush Color="Blue" />
+                </g:Polygon.Stroke>
+                <g:Polygon.Points>
+                    <Point X="0" Y="20" />
+                    <Point X="50" Y="20" />
+                    <Point X="50" Y="50" />
+                    <Point X="25" Y="50" />
+                    <Point X="15" Y="5" />
+                </g:Polygon.Points>
+            </g:Polygon>
+
+            <g:Polygon Top="50" Left="220"
+                       Stroke="Blue" StrokeThickness="3"
+                       Points="0,20 50,20 50,50 25,50 15,5" />
+
+            <g:Polyline Top="150" Left="50" StrokeThickness="3" Stroke="Blue">
+                <g:Polyline.Points>
+                    <Point X="0" Y="20" />
+                    <Point X="50" Y="20" />
+                    <Point X="50" Y="50" />
+                    <Point X="25" Y="50" />
+                    <Point X="15" Y="5" />
+                </g:Polyline.Points>
+                <g:Polyline.Fill>
+                    <g:LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                        <g:GradientStop Color="Yellow" Offset="0" />
+                        <g:GradientStop Color="Red" Offset="0.25" />
+                        <g:GradientStop Color="Blue" Offset="0.75" />
+                        <g:GradientStop Color="LimeGreen" Offset="1" />
+                    </g:LinearGradientBrush>
+                </g:Polyline.Fill>
+
+            </g:Polyline>
+
+            <g:Path Top="210" Left="110"
+                    Data="M4.12,0 L9.67,5.47 L4.12,10.94 M0,10.88 L5.56,5.47 L0,0.06"
+                    Stroke="Green" />
+
+            <g:Path Top="210" Left="60"
+                    Data="M0,0 L20,20 L0,40 M10,0 L30,20 L10,40z"
+                    Fill="Green" />
+
+            <g:Path Top="210" Left="20"
+                    Data="F1 M0,0 L20,20 L0,40 M10,0 L30,20 L10,40z"
+                    Fill="Green" />
+
+        </g:GraphicsCanvas>
+
+        <Button Clicked="OnClick" Text="Click Me!" HorizontalOptions="End" VerticalOptions="Start" />
+    </Grid>
+
+</ContentPage>
